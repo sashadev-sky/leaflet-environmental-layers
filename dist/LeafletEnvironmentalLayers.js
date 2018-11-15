@@ -3,7 +3,7 @@
  * heatmap.js v2.0.5 | JavaScript Heatmap Library
  *
  * Copyright 2008-2016 Patrick Wied <heatmapjs@patrick-wied.at> - All rights reserved.
- * Dual licensed under MIT and Beerware license
+ * Dual licensed under MIT and Beerware license 
  *
  * :: 2016-09-05 01:16
  */
@@ -30,7 +30,7 @@ var HeatmapConfig = {
   defaultBlur: .85,
   defaultXField: 'x',
   defaultYField: 'y',
-  defaultValueField: 'value',
+  defaultValueField: 'value', 
   plugins: {}
 };
 var Store = (function StoreClosure() {
@@ -92,13 +92,13 @@ var Store = (function StoreClosure() {
           }
           return false;
         } else {
-          return {
-            x: x,
+          return { 
+            x: x, 
             y: y,
-            value: value,
+            value: value, 
             radius: radius,
             min: min,
-            max: max
+            max: max 
           };
         }
     },
@@ -139,7 +139,7 @@ var Store = (function StoreClosure() {
           this.addData.call(this, dataArr[dataLen]);
         }
       } else {
-        // add to store
+        // add to store  
         var organisedEntry = this._organiseData(arguments[0], true);
         if (organisedEntry) {
           // if it's the first datapoint initialize the extremas with it
@@ -169,7 +169,7 @@ var Store = (function StoreClosure() {
       }
       this._max = data.max;
       this._min = data.min || 0;
-
+      
       this._onExtremaChange();
       this._coordinator.emit('renderall', this._getInternalData());
       return this;
@@ -193,11 +193,11 @@ var Store = (function StoreClosure() {
       this._coordinator = coordinator;
     },
     _getInternalData: function() {
-      return {
+      return { 
         max: this._max,
-        min: this._min,
+        min: this._min, 
         data: this._data,
-        radi: this._radi
+        radi: this._radi 
       };
     },
     getData: function() {
@@ -231,7 +231,7 @@ var Store = (function StoreClosure() {
                 }
               } else {
                 continue;
-              }
+              } 
             }
           }
         }
@@ -11158,7 +11158,7 @@ return jQuery;
 
       if (!this._heatmap) {
         this._heatmap = h337.create(this.cfg);
-      }
+      } 
 
       // this resets the origin and redraws whenever
       // the zoom changed or the map has been moved
@@ -11179,9 +11179,9 @@ return jQuery;
     },
     _draw: function() {
       if (!this._map) { return; }
-
+      
       var mapPane = this._map.getPanes().mapPane;
-      var point = mapPane._leaflet_pos;
+      var point = mapPane._leaflet_pos;      
 
       // reposition the layer
       this._el.style[HeatmapOverlay.CSS_TRANSFORM] = 'translate(' +
@@ -11212,7 +11212,7 @@ return jQuery;
       var localMin = 0;
       var valueField = this.cfg.valueField;
       var len = this._data.length;
-
+    
       while (len--) {
         var entry = this._data[len];
         var value = entry[valueField];
@@ -11256,12 +11256,12 @@ return jQuery;
       var latField = this.cfg.latField || 'lat';
       var lngField = this.cfg.lngField || 'lng';
       var valueField = this.cfg.valueField || 'value';
-
+    
       // transform data to latlngs
       var data = data.data;
       var len = data.length;
       var d = [];
-
+    
       while (len--) {
         var entry = data[len];
         var latlng = new L.LatLng(entry[latField], entry[lngField]);
@@ -11273,7 +11273,7 @@ return jQuery;
         d.push(dataObj);
       }
       this._data = d;
-
+    
       this._draw();
     },
     // experimential... not ready.
@@ -11290,7 +11290,7 @@ return jQuery;
         var entry = pointOrArray;
         var latlng = new L.LatLng(entry[latField], entry[lngField]);
         var dataObj = { latlng: latlng };
-
+        
         dataObj[valueField] = entry[valueField];
         this._max = Math.max(this._max, dataObj[valueField]);
         this._min = Math.min(this._min, dataObj[valueField]);
@@ -11304,7 +11304,7 @@ return jQuery;
     },
     _reset: function () {
       this._origin = this._map.layerPointToLatLng(new L.Point(0, 0));
-
+      
       var size = this._map.getSize();
       if (this._width !== size.x || this._height !== size.y) {
         this._width  = size.x;
@@ -11316,7 +11316,7 @@ return jQuery;
         this._heatmap._renderer.setDimensions(this._width, this._height);
       }
       this._draw();
-    }
+    } 
   });
 
   HeatmapOverlay.CSS_TRANSFORM = (function() {
@@ -25851,9 +25851,9 @@ exports.map = createMap;
 L.Icon.FracTrackerIcon = L.Icon.extend({
    options: {
     iconUrl: 'https://www.clker.com/cliparts/2/3/f/a/11970909781608045989gramzon_Barrel.svg.med.png',
-    iconSize:     [30, 20],
-    iconAnchor:   [20 , 0],
-    popupAnchor:  [-5, -5]
+    iconSize:     [30, 20], 
+    iconAnchor:   [20 , 0], 
+    popupAnchor:  [-5, -5] 
   }
 });
 
@@ -25866,49 +25866,49 @@ L.LayerGroup.FracTrackerLayer = L.LayerGroup.extend(
 
     {
         options: {
-            url: 'https://sagarpreet-chadha.github.io/FractrackerCSV.json',
+            url: 'https://sagarpreet-chadha.github.io/FractrackerCSV.json',   
         },
-
+        
         initialize: function (options) {
             options = options || {};
-            L.Util.setOptions(this, options);
-            this._layers = {};
+            L.Util.setOptions(this, options); 
+            this._layers = {};  
         },
-
+        
         onAdd: function (map) {
            // map.on('moveend', this.requestData, this);
             this._map = map;
             this.requestData();
         },
-
+        
         onRemove: function (map) {
            // map.off('moveend', this.requestData, this);
             this.clearLayers();
             this._layers = {};
         },
-
+        
         requestData: function () {
            var self = this;
                 (function() {
                     var script = document.createElement("SCRIPT");
                     script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
                     script.type = 'text/javascript';
-
+                    
                     script.onload = function() {
                         var $ = window.jQuery;
                         var FracTracker_URL = "https://sagarpreet-chadha.github.io/FractrackerCSV.json" ;
                         $.getJSON(FracTracker_URL , function(data){
-                        	 self.parseData(data) ;
+                        	 self.parseData(data) ;    
             		    });
                     };
                     document.getElementsByTagName("head")[0].appendChild(script);
-                })();
-
-
+                })(); 
+            
+            
         },
-
+       
         getMarker: function (data) {
-
+          
               var redDotIcon =new L.icon.fracTrackerIcon();
               var lat = parseFloat(data.FIELD12) ;
               var lng = parseFloat(data.FIELD13) ;
@@ -25921,27 +25921,27 @@ L.LayerGroup.FracTrackerLayer = L.LayerGroup.extend(
               var email = data.FIELD6 ;
               var phone = data.FIELD7 ;
               var street = data.FIELD8 ;
-              var fracTracker ;
+              var fracTracker ; 
               fracTracker = L.marker([lat , lng] , {icon: redDotIcon}).bindPopup(title + "<br><a href=" + website + ">" + website +"</a>" + "<br><strong> lat: " + lat + "</strong><br><strong> lon: " + lng + "</strong>"+"<br>Contact :"+contact+"<br>Phone :" + phone + "<br>Email :" + email + "<br>Street : " + street + "<br>State : "+state + "<br>City :"+ city +"<br><i>"+summary+"</i><br><br> <i>Data provided by <a href='http://fractracker.org/'>http://fractracker.org/</a></i>") ;
-
+              
               return fracTracker ;
         },
 
         addMarker: function (data) {
-            var marker = this.getMarker(data) ;
-            key = data.FIELD2;
+            var marker = this.getMarker(data) ; 
+            key = data.FIELD2;   
     		    if (!this._layers[key]) {
     		      this._layers[key] = marker;
-    		      this.addLayer(marker);
+    		      this.addLayer(marker);   
     		    }
         },
-
+        
         parseData: function (data) {
-
-            for (i = 1 ; i < data.length ; i++) {
-             this.addMarker(data[i]) ;
+    
+            for (i = 1 ; i < data.length ; i++) { 
+             this.addMarker(data[i]) ; 
             }
-
+             
         }
     }
 );
@@ -26256,6 +26256,157 @@ L.layerGroup.indigenousLandsTerritoriesLayer = function (options) {
 };
 
 },{}],11:[function(require,module,exports){
+L.LayerGroup.IndigenousLandsTreatiesLayer = L.LayerGroup.extend(
+
+    {
+        options: {
+            url: 'https://native-land.ca/api/index.php?maps=treaties&position=44,-80',
+            popupOnMouseover: false,
+            clearOutsideBounds: false,
+            target: '_self',
+            //minZoom: 0,
+            //maxZoom: 18
+        },
+
+        initialize: function (options) {
+            options = options || {};
+            L.Util.setOptions(this, options);
+            this._layers = {};
+
+        },
+
+        onAdd: function (map) {
+            map.on('moveend', this.requestData, this);
+            this._map = map;
+            this.requestData();
+
+        },
+
+        onRemove: function (map) {
+            map.off('moveend', this.requestData, this);
+            this.clearLayers();
+            this._layers = {};
+        },
+
+        requestData: function () {
+                var self = this ;
+                (function() {
+                    var script = document.createElement("SCRIPT");
+                    script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+                    script.type = 'text/javascript';
+                    var zoom = self._map.getZoom(), origin = self._map.getCenter() ;
+                    script.onload = function() {
+                        var $ = window.jQuery;
+
+                        //Here is the URL that should be for loading 1 region at a time
+                        var ILTr_url = "https://native-land.ca/api/index.php?maps=treaties&position=" + parseInt(origin.lat) + "," + parseInt(origin.lng);
+                        //this url loads all regions at once
+                        //var ILTr_url = "https://native-land.ca/api/index.php?maps=treaties";
+                        //Here is the getJSON method designed after the other layers
+                        $.getJSON(ILTr_url , function(data){
+                          self.parseData(data) ;
+                        });
+
+                        /*Here is a much simpler way to add the layer using geoJSON, because the data is already in geoJSON format
+                        This does all that parseData does in a much simpler format.*/
+
+                        /*$.getJSON(ILTr_url , function(data){
+                          function onEachFeature(feature, layer) {
+                            layer.bindPopup("<strong>Name : </strong>" + feature.properties.Name + "<br><strong>Description: </strong> <a href=" + feature.properties.description + ">Native Lands - " + feature.properties.Name + "</a><br><i>From the  (<a href='https://publiclab.org/notes/sagarpreet/06-06-2018/leaflet-environmental-layer-library?_=1528283515'>info<a>)</i>");
+                          }
+
+                          function getStyle(feature, layer) {
+                            return {
+                              "color": feature.properties.color;
+                            }
+                          }
+
+                          self.addLayer(L.geoJSON(data, {style: getStyle, onEachFeature: onEachFeature}));
+                        });*/
+
+                    };
+                    document.getElementsByTagName("head")[0].appendChild(script);
+                })();
+
+
+        },
+
+
+        getPoly: function (data) {
+              var coords = data.geometry.coordinates;
+
+              //Because geoJSON has coordinates in lng, lat format, we must reverse them
+              for(var j = 0; j < coords[0].length; j++) {
+                var temp = coords[0][j][1];
+                coords[0][j][1] = coords[0][j][0];
+                coords[0][j][0] = temp;
+              }
+
+              var nme = data.properties.Name;
+              //var frNme = data.properties.FrenchName;
+              var desc = data.properties.description;
+              //var frDesc = data.properties.FrenchDescription;
+              var clr = data.properties.color;
+
+              var ill_poly ;
+              if (!isNaN((coords[0][0][0]) && !isNaN((coords[0][0][1]))) ){
+
+                ill_poly = L.polygon(coords, {color: clr}).bindPopup("<strong>Name : </strong>" + nme + "<br><strong>Description: </strong> <a href=" + desc + ">Native Lands - " + nme + "</a><br><i>From the <a href='https://github.com/publiclab/leaflet-environmental-layers/pull/78'>Indigenous Treaties Inventory</a> (<a href='https://publiclab.org/notes/sagarpreet/06-06-2018/leaflet-environmental-layer-library?_=1528283515'>info<a>)</i>") ;
+
+              }
+            return ill_poly ;
+        },
+
+        addPoly: function (data) {
+            var poly = this.getPoly(data), key = data.id ;
+
+            if (!this._layers[key]) {
+                this._layers[key] = poly;
+                this.addLayer(poly);
+
+            }
+        },
+
+        parseData: function (data) {
+
+        if (!!data){
+           for (var i = 0 ; i < data.length ; i++) {
+
+            this.addPoly(data[i]) ;
+
+           }
+
+
+             if (this.options.clearOutsideBounds) {
+                this.clearOutsideBounds();
+            }
+          }
+        },
+
+        clearOutsideBounds: function () {
+            var bounds = this._map.getBounds(),
+                polyBounds,
+                key;
+
+            for (key in this._layers) {
+                if (this._layers.hasOwnProperty(key)) {
+                    polyBounds = this._layers[key].getBounds();
+
+                    if (!bounds.intersects(polyBounds)) {
+                        this.removeLayer(this._layers[key]);
+                        delete this._layers[key];
+                    }
+                }
+            }
+        }
+    }
+);
+
+L.layerGroup.indigenousLandsTreatiesLayer = function (options) {
+    return new L.LayerGroup.IndigenousLandsTreatiesLayer(options);
+};
+
+},{}],12:[function(require,module,exports){
 require('jquery') ;
 require('leaflet') ;
 
@@ -26270,6 +26421,7 @@ require('leaflet-providers') ;
 require('./openWeatherMapLayer.js') ;
 require('./indigenousLandsTerritoriesLayer.js');
 require('./indigenousLandsLanguagesLayer.js');
+require('./indigenousLandsTreatiesLayer.js') ;
 
 },{"./fractracker.js":8,"./indigenousLandsLanguagesLayer.js":9,"./indigenousLandsTerritoriesLayer.js":10,"./indigenousLandsTreatiesLayer.js":11,"./mapKnitterLayer.js":13,"./odorReportLayer.js":14,"./openWeatherMapLayer.js":15,"./purpleAirMarkerLayer.js":16,"./purpleLayer.js":17,"./skyTruthLayer.js":18,"./toxicReleaseLayer.js":19,"jquery":2,"leaflet":6,"leaflet-providers":5}],13:[function(require,module,exports){
  L.Icon.MapKnitterIcon = L.Icon.extend({
@@ -26293,29 +26445,29 @@ L.LayerGroup.MapKnitterLayer = L.LayerGroup.extend(
     {
         options: {
             url: 'https://mapknitter.org/map/region/Gulf-Coast.json?minlon=-98.8&minlat=23.6&maxlon=-79.1&maxlat=31.8',
-            clearOutsideBounds: true ,
+            clearOutsideBounds: true ,     
         },
-
+        
         initialize: function (options) {
             options = options || {};
-            L.Util.setOptions(this, options);
-            this._layers = {};
+            L.Util.setOptions(this, options); 
+            this._layers = {};  
 
         },
-
+        
         onAdd: function (map) {
             map.on('moveend', this.requestData, this);
             this._map = map;
             this.requestData();
 
         },
-
+        
         onRemove: function (map) {
             map.off('moveend', this.requestData, this);
             this.clearLayers();
             this._layers = {};
         },
-
+        
         requestData: function () {
            var self = this;
                 (function() {
@@ -26323,22 +26475,22 @@ L.LayerGroup.MapKnitterLayer = L.LayerGroup.extend(
                     script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
                     script.type = 'text/javascript';
                     var zoom = self._map.getZoom(), northeast = self._map.getBounds().getNorthEast() , southwest = self._map.getBounds().getSouthWest() ;
-
+                    
                     script.onload = function() {
                         var $ = window.jQuery;
                         var MapKnitter_url = "https://mapknitter.org/map/region/Gulf-Coast.json?minlon="+(southwest.lng)+"&minlat="+(southwest.lat)+"&maxlon="+(northeast.lng)+"&maxlat="+(northeast.lat);
                         $.getJSON(MapKnitter_url , function(data){
-                        	 self.parseData(data) ;
+                        	 self.parseData(data) ;    
             		    });
                     };
                     document.getElementsByTagName("head")[0].appendChild(script);
-                })();
-
-
+                })(); 
+            
+            
         },
-
+       
         getMarker: function (data) {
-
+          
               var redDotIcon =new L.icon.mapKnitterIcon();
               var lat = data.lat ;
               var lng = data.lon;
@@ -26347,7 +26499,7 @@ L.LayerGroup.MapKnitterLayer = L.LayerGroup.extend(
               var author = data.author ;
               var url = "https://publiclab.org/profile/" + author ;
               var map_page = "https://mapknitter.org/maps/"+ title ;
-              var mapknitter ;
+              var mapknitter ; 
               if (!isNaN(lat) && !isNaN(lng) ){
                 mapknitter = L.marker([lat , lng] , {icon: redDotIcon}).bindPopup("<strong>Title : </strong>"+ "<a href=" + map_page + ">" + title + "</a>" + "<br><strong>Author :</strong> " + "<a href="+url+">"  +  author +"</a>" + "<br><strong>Location : </strong>" + location  + "<br><strong> Lat : </strong>" + lat + "  ,  <strong> Lon : </strong>" + lng +"<br><i>For more info on <a href='https://github.com/publiclab/leaflet-environmental-layers/issues/10'>MapKnitter Layer</a>, visit <a href='https://publiclab.org/notes/sagarpreet/06-06-2018/leaflet-environmental-layer-library?_=1528283515'>here<a></i>" ) ;
               }
@@ -26355,28 +26507,28 @@ L.LayerGroup.MapKnitterLayer = L.LayerGroup.extend(
         },
         addMarker: function (data) {
             var marker = this.getMarker(data),
-
-            key = data.id;
+            
+            key = data.id;  
 
             if (!this._layers[key]) {
                 this._layers[key] = marker;
-                this.addLayer(marker);
+                this.addLayer(marker);  
             }
         },
-
+        
         parseData: function (data) {
+    
 
-
-            for (i = 0 ; i < data.length ; i++) {
-             this.addMarker(data[i]) ;
+            for (i = 0 ; i < data.length ; i++) { 
+             this.addMarker(data[i]) ; 
             }
 
              if (this.options.clearOutsideBounds) {
                 this.clearOutsideBounds();
-            }
-
+            }  
+             
         },
-
+       
         clearOutsideBounds: function () {
             var bounds = this._map.getBounds(),
                 latLng,
@@ -26386,7 +26538,7 @@ L.LayerGroup.MapKnitterLayer = L.LayerGroup.extend(
                 if (this._layers.hasOwnProperty(key)) {
                     latLng = this._layers[key].getLatLng();
 
-                    if (!bounds.contains(latLng)) {
+                    if (!bounds.contains(latLng)) {         
                         this.removeLayer(this._layers[key]);
                         delete this._layers[key];
                     }
@@ -26405,9 +26557,9 @@ L.layerGroup.mapKnitterLayer = function (options) {
 L.Icon.OdorReportIcon = L.Icon.extend({
     options: {
       iconUrl: 'https://www.clker.com/cliparts/T/3/6/T/S/8/ink-splash-md.png',
-      iconSize:     [30, 20],
-      iconAnchor:   [20 , 0],
-      popupAnchor:  [-5, -5]
+      iconSize:     [30, 20], 
+      iconAnchor:   [20 , 0], 
+      popupAnchor:  [-5, -5] 
     }
 });
 
@@ -26421,29 +26573,29 @@ L.LayerGroup.OdorReportLayer = L.LayerGroup.extend(
     {
         options: {
             url: ' https://odorlog.api.ushahidi.io/api/v3/posts/',
-            clearOutsideBounds: false
+            clearOutsideBounds: false 
         },
-
+        
         initialize: function (options) {
             options = options || {};
-            L.Util.setOptions(this, options);
-            this._layers = {};
+            L.Util.setOptions(this, options);  
+            this._layers = {}; 
 
         },
-
+        
         onAdd: function (map) {
             map.on('moveend', this.requestData, this);
             this._map = map;
             this.requestData();
 
         },
-
+       
         onRemove: function (map) {
             map.off('moveend', this.requestData, this);
             this.clearLayers();
             this._layers = {};
         },
-
+       
         requestData: function () {
            var self = this;
                 (function() {
@@ -26455,53 +26607,53 @@ L.LayerGroup.OdorReportLayer = L.LayerGroup.extend(
                         var $ = window.jQuery;
                         var OdorReport_url = "https://odorlog.api.ushahidi.io/api/v3/posts/" ;
                         $.getJSON(OdorReport_url , function(data){
-                             self.parseData(data) ;
+                             self.parseData(data) ;    
                         });
                     };
                     document.getElementsByTagName("head")[0].appendChild(script);
-                })();
-
-
+                })(); 
+            
+            
         },
-
+        
         getMarker: function (data) {
-
+          
               var redDotIcon =new L.icon.odorReportIcon() ;
               var lat = data.values["bcc29002-c4d3-4c2c-92c7-1c9032c3b0fd"][0].lat ;
               var lng = data.values["bcc29002-c4d3-4c2c-92c7-1c9032c3b0fd"][0].lon ;
               var title = data.title ;
               var url = data.url ;
-              var odormarker ;
+              var odormarker ; 
               if (!isNaN(lat) && !isNaN(lng) ){
                 odormarker = L.marker([lat , lng] , {icon: redDotIcon}).bindPopup(title + "<br><a href="+url+">" + url +"</a>" + "<br><strong> lat: " + lat + "</strong><br><strong> lon: " + lng + "</strong><br><br>Data provided by <a href='https://odorlog.ushahidi.io'>https://odorlog.ushahidi.io</a>") ;
               }
             return odormarker;
         },
-
+       
         addMarker: function (data) {
             var marker = this.getMarker(data),
-
-            key = data.id;
+            
+            key = data.id;   
 
             if (!this._layers[key]) {
                 this._layers[key] = marker;
-                this.addLayer(marker);
+                this.addLayer(marker);   
             }
         },
-
+        
         parseData: function (data) {
-
+    
           if (data.total_count != 0 ){
-            for (i = 0 ; i < data.total_count ; i++) {
-             this.addMarker(data.results[i]) ;
+            for (i = 0 ; i < data.total_count ; i++) { 
+             this.addMarker(data.results[i]) ; 
             }
 
              if (this.options.clearOutsideBounds) {
                 this.clearOutsideBounds();
-            }
-          }
+            }  
+          }     
         },
-
+        
         clearOutsideBounds: function () {
             var bounds = this._map.getBounds(),
                 latLng,
@@ -26511,7 +26663,7 @@ L.LayerGroup.OdorReportLayer = L.LayerGroup.extend(
                 if (this._layers.hasOwnProperty(key)) {
                     latLng = this._layers[key].getLatLng();
 
-                    if (!bounds.contains(latLng)) {
+                    if (!bounds.contains(latLng)) {          
                         this.removeLayer(this._layers[key]);
                         delete this._layers[key];
                     }
@@ -27437,7 +27589,7 @@ L.OWM.Utils = {
 			, id905: 'Windy'
 			, id906: 'Hail'
 		},
-
+		
 		it: {
 			owmlinktitle: 'Dettagli su OpenWeatherMap'
 			, temperature: 'Temperatura'
@@ -27449,7 +27601,7 @@ L.OWM.Utils = {
 			, rain_1h: 'Pioggia'
 			, humidity: 'Umidità'
 			, pressure: 'Pressione'
-
+		
 			// condizioni meteorologiche, consultare https://openweathermap.org/weather-conditions
 			// Temporale
 			, id200: 'Tempesta con pioggia debole'
@@ -27471,7 +27623,7 @@ L.OWM.Utils = {
 			, id311: 'Pioggia / pioviggine'
 			, id312: 'Pioggia / pioviggine forte'
 			, id321: 'Pioviggine intensa'
-
+	
 			// Pioggia
 			, id500: 'Debole pioggia'
 			, id501: 'Pioggia moderata'
@@ -27483,7 +27635,7 @@ L.OWM.Utils = {
 			, id521: 'Pioggia'
 			, id522: 'Pioggia forte'
 			, id531: 'pioggia irregolare'
-
+		
 			// neve
 			, id600: 'Neve Debole'
 			, id601: 'Neve'
@@ -27538,7 +27690,7 @@ L.OWM.Utils = {
 			, id961: 'Tempesta violenta'
 			, id962: 'Uragano'
 		},
-
+		
 		de: {
 			owmlinktitle: 'Details bei OpenWeatherMap'
 			, temperature: 'Temperatur'
@@ -28101,7 +28253,7 @@ L.OWM.Utils = {
 
 
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 require('jquery') ;
 require('leaflet') ;
 
@@ -28215,67 +28367,67 @@ require('leaflet-heatmap') ;
 L.LayerGroup.PurpleLayer = L.LayerGroup.extend(
 
     {
-
+        
         options: {
             "radius": 2,
-            "maxOpacity": 1 ,
-            "scaleRadius": true,
+            "maxOpacity": 1 , 
+            "scaleRadius": true, 
             "useLocalExtrema": true,
              latField: 'lat',
              lngField: 'lng',
              valueField: 'count' ,
-             blur: .75
+             blur: .75    
         },
-
+        
         initialize: function (options) {
             options = options || {};
-            L.Util.setOptions(this, options);
-            this._layers = {};
+            L.Util.setOptions(this, options); 
+            this._layers = {};  
             this._purpleLayerArray = [] ;
             this.heatmapLayer ;
         },
-
+        
         onAdd: function (map) {
              this._map = map;
              this.heatmapLayer = new HeatmapOverlay(this.options) ;
-
+           
              this.requestData();
 
 
         },
-
+        
         onRemove: function (map) {
             this._map.removeLayer(this.heatmapLayer) ;
             this.clearLayers();
             this._layers = {};
         },
-
+        
         requestData: function () {
            var self = this;
                 (function() {
                     var script = document.createElement("SCRIPT");
                     script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
                     script.type = 'text/javascript';
-
+                    
                     script.onload = function() {
                         var $ = window.jQuery;
                         var PurpleLayer_url = "https://www.purpleair.com/json?fetchData=true&minimize=true&sensorsActive2=10080&orderby=L";
                         $.getJSON(PurpleLayer_url , function(data){
-                        	 self.parseData(data) ;
+                        	 self.parseData(data) ;    
             		    });
                     };
                     document.getElementsByTagName("head")[0].appendChild(script);
-                })();
-
-
+                })(); 
+            
+            
         },
-
+       
         getMarker: function (data) {
               var lat = data.Lat ;
               var lng = data.Lon;
               var value = parseFloat(data.PM2_5Value) ;  //PM2.5 VALUE in microgram per metre cube
 
-              var purpleLayer_object = new Object() ;
+              var purpleLayer_object = new Object() ; 
               purpleLayer_object.lat = lat ;
               purpleLayer_object.lng = lng ;
               purpleLayer_object.count = value ;
@@ -28291,8 +28443,8 @@ L.LayerGroup.PurpleLayer = L.LayerGroup.extend(
               else if(value<=55.4){
                 aqi = ((150-101)*(value-35.5))/(55.4-35.5) + 101 ;
               }
-              else if(value<=150.4){
-                aqi = ((200-151)*(value-55.5))/(150.4-55.5) + 151 ;
+              else if(value<=150.4){  
+                aqi = ((200-151)*(value-55.5))/(150.4-55.5) + 151 ; 
               }
               else if(value<=250.4){
                 aqi = ((3000-201)*(value-150.5))/(250.4-150.5) + 201 ;
@@ -28312,11 +28464,11 @@ L.LayerGroup.PurpleLayer = L.LayerGroup.extend(
         addMarker: function (data) {
             this._purpleLayerArray.push(this.getMarker(data)) ;
         },
-
+        
         parseData: function (data) {
-
-            for (i = 0 ; i < data.results.length ; i++) {
-             this.addMarker(data.results[i]) ;
+    
+            for (i = 0 ; i < data.results.length ; i++) { 
+             this.addMarker(data.results[i]) ; 
             }
             //console.log(this._purpleLayerArray) ;
             this.heatmapLayer.setData({data: this._purpleLayerArray}) ;
@@ -28334,9 +28486,9 @@ L.layerGroup.purpleLayer = function (options) {
 L.Icon.SkyTruthIcon = L.Icon.extend({
   options: {
     iconUrl: 'https://www.clker.com/cliparts/T/G/b/7/r/A/red-dot.svg',
-    iconSize:     [30, 20],
-    iconAnchor:   [20 , 0],
-    popupAnchor:  [-5, -5]
+    iconSize:     [30, 20], 
+    iconAnchor:   [20 , 0], 
+    popupAnchor:  [-5, -5] 
   }
 });
 
@@ -28349,12 +28501,12 @@ L.LayerGroup.SkyTruthLayer = L.LayerGroup.extend(
     options: {
       url: 'https://alerts.skytruth.org/json?n=100',
       popupOnMouseover: false,
-      clearOutsideBounds: false ,
+      clearOutsideBounds: false ,       
     },
     initialize: function (options) {
       options = options || {};
-      L.Util.setOptions(this, options);
-      this._layers = {};
+      L.Util.setOptions(this, options);  
+      this._layers = {};  
     },
     onAdd: function (map) {
       map.on('moveend', this.requestData, this);
@@ -28377,11 +28529,11 @@ L.LayerGroup.SkyTruthLayer = L.LayerGroup.extend(
         var $ = window.jQuery;
         var SkyTruth_url = "https://alerts.skytruth.org/json?n=100&l="+(southwest.lat)+","+(southwest.lng)+","+(northeast.lat)+","+(northeast.lng) ;
         $.getJSON(SkyTruth_url , function(data){
-          self.parseData(data) ;
+          self.parseData(data) ;    
         });
         };
       document.getElementsByTagName("head")[0].appendChild(script);
-      })();
+      })();      
     },
     getMarker: function (data) {
       var redDotIcon =new L.icon.skyTruthIcon();
@@ -28389,7 +28541,7 @@ L.LayerGroup.SkyTruthLayer = L.LayerGroup.extend(
       var lng = data.lng;
       var title = data.title ;
       var url = data.link ;
-      var skymarker ;
+      var skymarker ; 
       if (!isNaN(lat) && !isNaN(lng) ){
         skymarker = L.marker([lat , lng] , {icon: redDotIcon}).bindPopup("<a href="+url+">" +title + "</a><br>" + "<br><strong> lat: " + lat + "</strong><br><strong> lon: " + lng + "</strong> <br><br>Data provided by <a href='http://alerts.skytruth.org/'>alerts.skytruth.org/</a>") ;
       }
@@ -28397,21 +28549,21 @@ L.LayerGroup.SkyTruthLayer = L.LayerGroup.extend(
     },
     addMarker: function (data) {
       var marker = this.getMarker(data),
-      key = data.id;
+      key = data.id;   
       if (!this._layers[key]) {
         this._layers[key] = marker;
-        this.addLayer(marker);
+        this.addLayer(marker);   
       }
     },
     parseData: function (data) {
       if (!!data.feed){
-        for (i = 0 ; i < data.feed.length ; i++) {
-          this.addMarker(data.feed[i]) ;
+        for (i = 0 ; i < data.feed.length ; i++) { 
+          this.addMarker(data.feed[i]) ; 
         }
         if (this.options.clearOutsideBounds) {
           this.clearOutsideBounds();
-        }
-      }
+        }  
+      }     
     },
     clearOutsideBounds: function () {
       var bounds = this._map.getBounds(),
@@ -28420,7 +28572,7 @@ L.LayerGroup.SkyTruthLayer = L.LayerGroup.extend(
       for (key in this._layers) {
         if (this._layers.hasOwnProperty(key)) {
           latLng = this._layers[key].getLatLng();
-          if (!bounds.contains(latLng)) {
+          if (!bounds.contains(latLng)) {          
             this.removeLayer(this._layers[key]);
             delete this._layers[key];
           }
@@ -28433,13 +28585,13 @@ L.LayerGroup.SkyTruthLayer = L.LayerGroup.extend(
 L.layerGroup.skyTruthLayer = function (options) {
   return new L.LayerGroup.SkyTruthLayer(options);
 };
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 L.Icon.ToxicReleaseIcon = L.Icon.extend({
     options: {
       iconUrl: 'https://www.clker.com/cliparts/r/M/L/o/R/i/green-dot.svg',
-      iconSize:     [30, 20],
-      iconAnchor:   [20 , 0],
-      popupAnchor:  [-5, -5]
+      iconSize:     [30, 20], 
+      iconAnchor:   [20 , 0], 
+      popupAnchor:  [-5, -5] 
     }
 });
 
@@ -28454,34 +28606,34 @@ L.LayerGroup.ToxicReleaseLayer = L.LayerGroup.extend(
         options: {
             url: 'https://iaspub.epa.gov/enviro/efservice/tri_facility/pref_latitude/BEGINNING/45/PREF_LONGITUDE/BEGINNING/72/rows/0:500/JSON',
             popupOnMouseover: false,
-            clearOutsideBounds: false,
-            target: '_self',
+            clearOutsideBounds: false,       
+            target: '_self',      
             minZoom: 0,
             maxZoom: 18
         },
-
+      
         initialize: function (options) {
             options = options || {};
-            L.Util.setOptions(this, options);
-            this._layers = {};
+            L.Util.setOptions(this, options);  
+            this._layers = {}; 
 
         },
-
+        
         onAdd: function (map) {
             map.on('moveend', this.requestData, this);
             this._map = map;
             this.requestData();
 
         },
-
+        
         onRemove: function (map) {
             map.off('moveend', this.requestData, this);
             this.clearLayers();
             this._layers = {};
         },
-
+        
         requestData: function () {
-                var self = this ;
+                var self = this ; 
                 (function() {
                     var script = document.createElement("SCRIPT");
                     script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
@@ -28492,56 +28644,57 @@ L.LayerGroup.ToxicReleaseLayer = L.LayerGroup.extend(
                         var TRI_url = "https://iaspub.epa.gov/enviro/efservice/tri_facility/pref_latitude/BEGINNING/"+parseInt(origin.lat)+"/PREF_LONGITUDE/BEGINNING/"+parseInt(-1*origin.lng)+"/rows/0:300/JSON" ;
                          $.getJSON(TRI_url , function(data){
                          // console.log(parseInt(origin.lat) +" and "+parseInt(origin.lng)) ;
-                         self.parseData(data) ;
+                         self.parseData(data) ;    
                         });
                     };
                     document.getElementsByTagName("head")[0].appendChild(script);
-                })();
-
-
+                })(); 
+            
+            
         },
-
+       
         getMarker: function (data) {
-
+          
             var greenDotIcon =new L.icon.toxicReleaseIcon();
               var lat = data.PREF_LATITUDE ;
               var lng = -1*data.PREF_LONGITUDE;
              // console.log(lat +"  "+lng) ;
               var fac_name = data.FACILITY_NAME ;
-              var city = data.CITY_NAME ;
+              var city = data.CITY_NAME ; 
               var mail_street_addr = data.MAIL_STREET_ADDRESS ;
-              var contact = data.ASGN_PUBLIC_PHONE ;
-              var tri_marker ;
+              var contact = data.ASGN_PUBLIC_PHONE ; 
+              var tri_marker ; 
+
               if (!isNaN((lat)) && !isNaN((lng)) ){
                 tri_marker = L.marker([lat , lng] , {icon: greenDotIcon}).bindPopup("<strong>Name : </strong>" + fac_name + "<br><strong> City :" + city +"</strong>" + "<br><strong> Street address : " + mail_street_addr + "</strong><br><strong> Contact : " + contact + "</strong><br>Lat :"+lat+"<br>Lon :"+lng +"<br><i>From the <a href='https://github.com/publiclab/leaflet-environmental-layers/pull/8'>Toxic Release Inventory</a> (<a href='https://publiclab.org/notes/sagarpreet/06-06-2018/leaflet-environmental-layer-library?_=1528283515'>info<a>)</i>") ;
               }
-            return tri_marker ;
+            return tri_marker ; 
         },
-
+        
         addMarker: function (data) {
             var marker = this.getMarker(data),
-
-             key = data.TRI_FACILITY_ID ;
+            
+             key = data.TRI_FACILITY_ID ;   
 
             if (!this._layers[key]) {
                 this._layers[key] = marker;
-                this.addLayer(marker);
+                this.addLayer(marker);   
             }
         },
 
         parseData: function (data) {
-
+             
         if (!!data){
-           for (i = 0 ; i < data.length ; i++) {
-            this.addMarker(data[i]) ;
+           for (i = 0 ; i < data.length ; i++) { 
+            this.addMarker(data[i]) ; 
            }
 
              if (this.options.clearOutsideBounds) {
                 this.clearOutsideBounds();
-            }
-          }
+            }  
+          }     
         },
-
+        
         clearOutsideBounds: function () {
             var bounds = this._map.getBounds(),
                 latLng,
@@ -28551,7 +28704,7 @@ L.LayerGroup.ToxicReleaseLayer = L.LayerGroup.extend(
                 if (this._layers.hasOwnProperty(key)) {
                     latLng = this._layers[key].getLatLng();
 
-                    if (!bounds.contains(latLng)) {
+                    if (!bounds.contains(latLng)) {         
                         this.removeLayer(this._layers[key]);
                         delete this._layers[key];
                     }
