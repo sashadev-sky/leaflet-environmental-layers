@@ -26256,6 +26256,7 @@ L.layerGroup.indigenousLandsTerritoriesLayer = function (options) {
 };
 
 },{}],11:[function(require,module,exports){
+<<<<<<< HEAD
 L.LayerGroup.IndigenousLandsTreatiesLayer = L.LayerGroup.extend(
 
     {
@@ -26422,6 +26423,22 @@ require('./openWeatherMapLayer.js') ;
 require('./indigenousLandsTerritoriesLayer.js');
 require('./indigenousLandsLanguagesLayer.js');
 require('./indigenousLandsTreatiesLayer.js') ;
+=======
+require('jquery') ;
+require('leaflet') ;
+
+require('./purpleAirMarkerLayer.js') ;
+require('./purpleLayer.js') ;
+require('./fractracker.js') ;
+require('./skyTruthLayer.js') ;
+require('./odorReportLayer.js') ;
+require('./mapKnitterLayer.js') ;
+require('./toxicReleaseLayer.js') ;
+require('leaflet-providers') ;
+require('./openWeatherMapLayer.js') ;
+require('./indigenousLandsTerritoriesLayer.js');
+require('./indigenousLandsLanguagesLayer.js');
+>>>>>>> feature_purpleair_correction
 
 },{"./fractracker.js":8,"./indigenousLandsLanguagesLayer.js":9,"./indigenousLandsTerritoriesLayer.js":10,"./indigenousLandsTreatiesLayer.js":11,"./mapKnitterLayer.js":13,"./odorReportLayer.js":14,"./openWeatherMapLayer.js":15,"./purpleAirMarkerLayer.js":16,"./purpleLayer.js":17,"./skyTruthLayer.js":18,"./toxicReleaseLayer.js":19,"jquery":2,"leaflet":6,"leaflet-providers":5}],13:[function(require,module,exports){
  L.Icon.MapKnitterIcon = L.Icon.extend({
@@ -28253,14 +28270,22 @@ L.OWM.Utils = {
 
 
 
+<<<<<<< HEAD
 },{}],16:[function(require,module,exports){
+=======
+},{}],15:[function(require,module,exports){
+>>>>>>> feature_purpleair_correction
 require('jquery') ;
 require('leaflet') ;
 
 L.Icon.PurpleAirMarkerIcon = L.Icon.extend({
    options: {
     iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Location_dot_purple.svg/768px-Location_dot_purple.svg.png',
+<<<<<<< HEAD
     iconSize:     [15 , 10],
+=======
+    iconSize:     [11 , 10],
+>>>>>>> feature_purpleair_correction
     iconAnchor:   [20 , 0],
     popupAnchor:  [-5, -5]
   }
@@ -28273,7 +28298,11 @@ L.icon.purpleAirMarkerIcon = function () {
 L.LayerGroup.PurpleAirMarkerLayer = L.LayerGroup.extend(
     {
         options: {
+<<<<<<< HEAD
             url: 'https://www.purpleair.com/json?fetchData=true&minimize=true&sensorsActive2=10080&orderby=L',
+=======
+            url: 'https://www.purpleair.com/data.json?fetchData=true&minimize=true&sensorsActive2=10080&orderby=L&nwlat=71.01695975726373&selat=4.390228926463396&nwlng=-172.79296875&selng=80.33203125',
+>>>>>>> feature_purpleair_correction
         },
 
         initialize: function (options) {
@@ -28283,16 +28312,20 @@ L.LayerGroup.PurpleAirMarkerLayer = L.LayerGroup.extend(
         },
 
         onAdd: function (map) {
+            map.setZoom(7) ;
+            map.on('moveend', this.requestData, this);
             this._map = map;
             this.requestData();
         },
 
         onRemove: function (map) {
+            map.off('moveend', this.requestData, this);
             this.clearLayers();
             this._layers = {};
         },
 
         requestData: function () {
+<<<<<<< HEAD
            var self = this;
                 (function() {
                     var script = document.createElement("SCRIPT");
@@ -28310,10 +28343,30 @@ L.LayerGroup.PurpleAirMarkerLayer = L.LayerGroup.extend(
                 })();
 
 
+=======
+          if(this._map.getZoom() >= 7){
+             var self = this;
+                  (function() {
+                      var script = document.createElement("SCRIPT");
+                      script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+                      script.type = 'text/javascript';
+                      var zoom = self._map.getZoom(), northwest = self._map.getBounds().getNorthWest() , southeast = self._map.getBounds().getSouthEast() ;
+                      script.onload = function() {
+                          var $ = window.jQuery;
+                          var PurpleLayer_url = "https://www.purpleair.com/data.json?fetchData=true&minimize=true&sensorsActive2=10080&orderby=L&nwlat="+(northwest.lat)+"&selat="+(southeast.lat)+"&nwlng="+(northwest.lng)+"&selng="+(southeast.lng) ;
+                          $.getJSON(PurpleLayer_url , function(data){
+                          	 self.parseData(data) ;
+              		    });
+                      };
+                      document.getElementsByTagName("head")[0].appendChild(script);
+                  })();
+          }
+>>>>>>> feature_purpleair_correction
         },
 
         getMarker: function (data) {
               var redDotIcon =new L.icon.purpleAirMarkerIcon();
+<<<<<<< HEAD
               var lat = data.Lat ;
               var lng = data.Lon;
               var value = parseFloat(data.PM2_5Value) ;  //PM2.5 VALUE in microgram per metre cube
@@ -28324,10 +28377,22 @@ L.LayerGroup.PurpleAirMarkerLayer = L.LayerGroup.extend(
 
               var type = data.Type ;
               var hardware = data.DEVICE_HARDWAREDISCOVERED ;
+=======
+              var lat = data[25] ;  // Lat
+              var lng = data[26] ;  //Lon
+              var value = parseFloat(data[16]) ;  //PM2.5 VALUE in microgram per metre cube
+              var Label = data[24] ;  //Label
+              var temp_f = data[21] ;  // temperature (F)
+              var humidity = data[20] ; // Humidity
+              var pressure = data[22] ; //Pressure
+
+            //  var type = data.Type ;
+            //  var hardware = data.DEVICE_HARDWAREDISCOVERED ;
+>>>>>>> feature_purpleair_correction
 
               var purpleAirMarker ;
               if(lat!=null && lng!=null){
-              purpleAirMarker = L.marker([lat , lng] , {icon: redDotIcon}).bindPopup("<i style='color: purple ; size : 20px'>Label : " + Label + "</i><br><br> <strong>PM2.5 Value : " + value +"</strong><br><strong> Lat: " + lat + "</strong><br><strong> Lon: " + lng + "<br>Temp (F) : "+temp_f+"<br>Humidity : " + humidity + "<br>Pressure : " + pressure + "<br><br>Hardware type : " + type + "<br>DEVICE_HARDWAREDISCOVERED : "+hardware + "</strong><br><br> <i>Data provided by <a href='www.purpleair.com'>www.purpleair.com</a></i>") ;
+              purpleAirMarker = L.marker([lat , lng] , {icon: redDotIcon}).bindPopup("<i style='color: purple ; size : 20px'>Label : " + Label + "</i><br><br> <strong>PM2.5 Value : " + value +"</strong><br><strong> Lat: " + lat + "</strong><br><strong> Lon: " + lng + "<br>Temp (F) : "+temp_f+"<br>Humidity : " + humidity + "<br>Pressure : " + pressure +"<br><br> <i>Data provided by <a href='www.purpleair.com'>www.purpleair.com</a></i>") ;
               }
               return purpleAirMarker ;
         },
@@ -28336,7 +28401,11 @@ L.LayerGroup.PurpleAirMarkerLayer = L.LayerGroup.extend(
 
             var marker = this.getMarker(data) ;
              if(marker != null){
+<<<<<<< HEAD
              key = data.ID ;
+=======
+             key = data[0] ;  // ID
+>>>>>>> feature_purpleair_correction
              if (!this._layers[key]) {
                this._layers[key] = marker;
                this.addLayer(marker);
@@ -28345,9 +28414,14 @@ L.LayerGroup.PurpleAirMarkerLayer = L.LayerGroup.extend(
         },
 
         parseData: function (data) {
+<<<<<<< HEAD
             console.log(data.results.length) ;
             for (i = 0 ; i < data.results.length ; i++) {
              this.addMarker(data.results[i]) ;
+=======
+            for (i = 0 ; i < data.data.length ; i++) {
+             this.addMarker(data.data[i]) ;
+>>>>>>> feature_purpleair_correction
             }
         }
     }
@@ -28583,6 +28657,7 @@ L.LayerGroup.SkyTruthLayer = L.LayerGroup.extend(
 L.layerGroup.skyTruthLayer = function (options) {
   return new L.LayerGroup.SkyTruthLayer(options);
 };
+<<<<<<< HEAD
 },{}],19:[function(require,module,exports){
 L.Icon.ToxicReleaseIcon = L.Icon.extend({
     options: {
@@ -28714,5 +28789,138 @@ L.LayerGroup.ToxicReleaseLayer = L.LayerGroup.extend(
 L.layerGroup.toxicReleaseLayer = function (options) {
     return new L.LayerGroup.ToxicReleaseLayer(options);
 };
+=======
+},{}],18:[function(require,module,exports){
+L.Icon.ToxicReleaseIcon = L.Icon.extend({
+    options: {
+      iconUrl: 'https://www.clker.com/cliparts/r/M/L/o/R/i/green-dot.svg',
+      iconSize:     [30, 20], 
+      iconAnchor:   [20 , 0], 
+      popupAnchor:  [-5, -5] 
+    }
+});
+
+L.icon.toxicReleaseIcon = function () {
+    return new L.Icon.ToxicReleaseIcon();
+};
+
+
+L.LayerGroup.ToxicReleaseLayer = L.LayerGroup.extend(
+
+    {
+        options: {
+            url: 'https://iaspub.epa.gov/enviro/efservice/tri_facility/pref_latitude/BEGINNING/45/PREF_LONGITUDE/BEGINNING/72/rows/0:500/JSON',
+            popupOnMouseover: false,
+            clearOutsideBounds: false,       
+            target: '_self',      
+            minZoom: 0,
+            maxZoom: 18
+        },
+      
+        initialize: function (options) {
+            options = options || {};
+            L.Util.setOptions(this, options);  
+            this._layers = {}; 
+
+        },
+        
+        onAdd: function (map) {
+            map.on('moveend', this.requestData, this);
+            this._map = map;
+            this.requestData();
+
+        },
+        
+        onRemove: function (map) {
+            map.off('moveend', this.requestData, this);
+            this.clearLayers();
+            this._layers = {};
+        },
+        
+        requestData: function () {
+                var self = this ; 
+                (function() {
+                    var script = document.createElement("SCRIPT");
+                    script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+                    script.type = 'text/javascript';
+                    var zoom = self._map.getZoom(), origin = self._map.getCenter() ;
+                    script.onload = function() {
+                        var $ = window.jQuery;
+                        var TRI_url = "https://iaspub.epa.gov/enviro/efservice/tri_facility/pref_latitude/BEGINNING/"+parseInt(origin.lat)+"/PREF_LONGITUDE/BEGINNING/"+parseInt(-1*origin.lng)+"/rows/0:300/JSON" ;
+                         $.getJSON(TRI_url , function(data){
+                         // console.log(parseInt(origin.lat) +" and "+parseInt(origin.lng)) ;
+                         self.parseData(data) ;    
+                        });
+                    };
+                    document.getElementsByTagName("head")[0].appendChild(script);
+                })(); 
+            
+            
+        },
+       
+        getMarker: function (data) {
+          
+            var greenDotIcon =new L.icon.toxicReleaseIcon();
+              var lat = data.PREF_LATITUDE ;
+              var lng = -1*data.PREF_LONGITUDE;
+             // console.log(lat +"  "+lng) ;
+              var fac_name = data.FACILITY_NAME ;
+              var city = data.CITY_NAME ; 
+              var mail_street_addr = data.MAIL_STREET_ADDRESS ;
+              var contact = data.ASGN_PUBLIC_PHONE ; 
+              var tri_marker ; 
+              if (!isNaN((lat)) && !isNaN((lng)) ){
+                tri_marker = L.marker([lat , lng] , {icon: greenDotIcon}).bindPopup("<strong>Name : </strong>" + fac_name + "<br><strong> City :" + city +"</strong>" + "<br><strong> Street address : " + mail_street_addr + "</strong><br><strong> Contact : " + contact + "</strong><br>Lat :"+lat+"<br>Lon :"+lng +"<br><i>From the <a href='https://github.com/publiclab/leaflet-environmental-layers/pull/8'>Toxic Release Inventory</a> (<a href='https://publiclab.org/notes/sagarpreet/06-06-2018/leaflet-environmental-layer-library?_=1528283515'>info<a>)</i>") ;
+              }
+            return tri_marker ; 
+        },
+        
+        addMarker: function (data) {
+            var marker = this.getMarker(data),
+            
+             key = data.TRI_FACILITY_ID ;   
+
+            if (!this._layers[key]) {
+                this._layers[key] = marker;
+                this.addLayer(marker);   
+            }
+        },
+
+        parseData: function (data) {
+             
+        if (!!data){
+           for (i = 0 ; i < data.length ; i++) { 
+            this.addMarker(data[i]) ; 
+           }
+
+             if (this.options.clearOutsideBounds) {
+                this.clearOutsideBounds();
+            }  
+          }     
+        },
+        
+        clearOutsideBounds: function () {
+            var bounds = this._map.getBounds(),
+                latLng,
+                key;
+
+            for (key in this._layers) {
+                if (this._layers.hasOwnProperty(key)) {
+                    latLng = this._layers[key].getLatLng();
+
+                    if (!bounds.contains(latLng)) {         
+                        this.removeLayer(this._layers[key]);
+                        delete this._layers[key];
+                    }
+                }
+            }
+        }
+    }
+);
+
+L.layerGroup.toxicReleaseLayer = function (options) {
+    return new L.LayerGroup.ToxicReleaseLayer(options);
+};
+>>>>>>> feature_purpleair_correction
 
 },{}]},{},[3,7,12]);
