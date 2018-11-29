@@ -12,7 +12,7 @@
     z-index: 10; }</style>
   <script src="../dist/LeafletEnvironmentalLayers.js"></script>
   <script src="../dist/windRoseLayer.js"></script>
-  <script src="../node_modules/leaflet-fullhash/leaflet-fullHash.js"></script>
+  <!-- <script src="../node_modules/leaflet-fullhash/leaflet-fullHash.js"></script> -->
 
   <script src="../node_modules/heatmap.js/build/heatmap.min.js"></script>
   <script src="../node_modules/leaflet-heatmap/leaflet-heatmap.js"></script>
@@ -244,7 +244,7 @@
        "Languages": IndigenousLandsLanguages,
        "Treaties": IndigenousLandsTreaties,
        "AQI": AQICNLayer} ;
-    var hash = new L.Hash(map, allMapLayers);
+    // var hash = new L.Hash(map, allMapLayers);
     L.control.layers(baseMaps,overlayMaps).addTo(map);
 
 
